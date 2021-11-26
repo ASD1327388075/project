@@ -1,5 +1,24 @@
 html,body,#app {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   }
+
+
+.el-dialog {
+  margin-top: 9vh !important;
+  margin-bottom: 8vh !important;
+  overflow-y: auto;
+}
+
+[v-cloak]{
+  display: none;
+}
+
+.router-link-active{
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}

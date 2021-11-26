@@ -32,8 +32,18 @@
           <i class="el-icon-location"></i>
           <span slot="title">权限管理</span>
         </template>
-        <el-menu-item index="2-1">角色列表</el-menu-item>
-        <el-menu-item index="2-2">权限列表</el-menu-item>
+        <router-link to="/roleList">
+          <el-menu-item index="2-1">
+            <i class="el-icon-menu"></i>
+            <span slot="title">角色列表</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="/permissionList">
+          <el-menu-item index="2-2">
+            <i class="el-icon-menu"></i>
+            <span slot="title">权限列表</span>
+          </el-menu-item>
+        </router-link>
       </el-submenu>
 
       <el-submenu index="3">
@@ -99,5 +109,8 @@ export default {
 
 #projectAside {
   text-align: left;
+}
+.el-menu--popup {
+  padding: 0;
 }
 </style>

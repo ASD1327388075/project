@@ -18,9 +18,9 @@ export default {
   methods: {
     login() {
       this.$axios
-        .post("/login/", {
-          username: "admin",
-          password: 123456,
+        .post("/login", {
+          username: this.username,
+          password: this.password,
         })
         .then((res) => {
           console.log(res);
@@ -29,6 +29,8 @@ export default {
               message: "登陆成功",
               type: "success",
             });
+            window.sessionStorage.setItem("token", res.data.data.token);
+            this.$router.push({ name: "Home" });
           } else {
             this.$message({
               message: res.data.meta.msg,
@@ -43,8 +45,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.body {
-}
-.login {
-}
 </style>
