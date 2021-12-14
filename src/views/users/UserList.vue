@@ -297,37 +297,11 @@ export default {
     handleSizeChange(val) {
       this.pageSize = val;
       this.currentPage = 1;
-      this.$axios
-        .get("/users/", {
-          params: {
-            pagenum: this.currentPage,
-            pagesize: this.pageSize,
-          },
-        })
-        .then((res) => {
-          if (res.data.meta.status === 200) {
-            this.tableData = res.data.data.users;
-            this.total = res.data.data.total;
-          } else {
-          }
-        });
+      this.getTableData();
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.$axios
-        .get("/users/", {
-          params: {
-            pagenum: this.currentPage,
-            pagesize: this.pageSize,
-          },
-        })
-        .then((res) => {
-          if (res.data.meta.status === 200) {
-            this.tableData = res.data.data.users;
-            this.total = res.data.data.total;
-          } else {
-          }
-        });
+      this.getTableData();
     },
 
     // 弹出框

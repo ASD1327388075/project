@@ -1,39 +1,20 @@
 <template>
   <div v-cloak>
     <el-card class="box-card">
-      <div class="elinput clearfix">
-        <el-input v-model="input" placeholder="请输入内容" clearable></el-input>
-        <el-button
-          icon="el-icon-search"
-          class="marginLeft"
-          id="resestFormButton"
-          native-type="submit"
-          @click="search"
-        ></el-button>
-        <el-button type="primary" @click="add">添加用户</el-button>
-      </div>
-
       <el-table :data="tableData" style="width: 100%; height: 100%" border>
-        <el-table-column type="index" label="" width="80" align="center">
+        <el-table-column type="index" label="#" width="80" align="center">
         </el-table-column>
-        <el-table-column prop="username" label="用户名" width="180">
+        <el-table-column prop="authName" label="权限名称" width="">
         </el-table-column>
-        <el-table-column prop="email" label="邮箱"> </el-table-column>
-        <el-table-column prop="mobile" label="电话"> </el-table-column>
-        <el-table-column prop="role_name" label="角色"> </el-table-column>
+        <el-table-column prop="path" label="路径"> </el-table-column>
+        <el-table-column prop="level" label="等级">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.level == 0">一级</el-tag>
+            <el-tag type="success" v-if="scope.row.level == 1">二级</el-tag>
+            <el-tag type="warning" v-if="scope.row.level == 2">三级</el-tag>
+          </template>
+        </el-table-column>
       </el-table>
-      <div class="block">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="pageSizes"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        >
-        </el-pagination>
-      </div>
     </el-card>
   </div>
 </template>
@@ -43,12 +24,47 @@ export default {
   name: "ProjectPermissionlist",
 
   data() {
-    return {};
+    return {
+      // 权限列表
+      tableData: [],
+      // 分页
+      total: 0,
+      currentPage: 1,
+      pageSize: 10,
+      pageSizes: [2, 10, 15, 20],
+    };
   },
-
+  created() {
+    this.getPermissionList();
+  },
   mounted() {},
 
-  methods: {},
+  methods: {
+    getPermissionList() {
+      this.$axios
+        .get("/rights/list", {
+          params: {
+            pagenum: this.currentPage,
+            pagesize: this.pageSize,
+          },
+        })
+        .then((res) => {
+          if (res.data.meta.status === 200) {
+            this.tableData = res.data.data;
+            //  this.total = res.data.data.total;
+          }
+        });
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.currentPage = 1;
+      this.getPermissionList();
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      this.getPermissionList();
+    },
+  },
 };
 </script>
 
@@ -63,6 +79,9 @@ export default {
 }
 
 .el-table {
+  text-align: center;
+}
+.box-card {
   text-align: center;
 }
 .clearfix:after {

@@ -13,7 +13,7 @@ Vue.use(ElementUI);
 
 //axios配置
 Vue.prototype.$axios = axios
-axios.defaults.timeout = 2500;
+axios.defaults.timeout = 8500;
 axios.defaults.baseURL = 'http://git.coding-future.com:8888/api/private/v1';
 
 
@@ -31,7 +31,10 @@ axios.interceptors.request.use(config => {
 Vue.config.productionTip = false
 
 
-new Vue({
+export default new Vue({
+  state: {
+    withChange: 0,
+  },
   router,
   store,
   render: h => h(App)

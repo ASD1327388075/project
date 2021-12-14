@@ -24,10 +24,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "userList" */ '@/views/users/UserList.vue')
       },
       {
-        path: '/roleLsit',
+        path: '/roleList',
         name: 'RoleList',
-        component: () => import(/* webpackChunkName: "roleLsit" */ '@/views/role/RoleList.vue')
-      }, {
+        component: () => import(/* webpackChunkName: "roleList" */ '@/views/role/RoleList.vue')
+      },
+      {
         path: '/permissionList',
         name: 'PermissionList',
         component: () => import(/* webpackChunkName: "permissionList" */ '@/views/role/PermissionList.vue')
